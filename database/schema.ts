@@ -8,18 +8,7 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
 export class AuthAccessTokenSchema extends BaseModel {
-  static $columns = [
-    'abilities',
-    'createdAt',
-    'expiresAt',
-    'hash',
-    'id',
-    'lastUsedAt',
-    'name',
-    'tokenableId',
-    'type',
-    'updatedAt',
-  ] as const
+  static $columns = ['abilities', 'createdAt', 'expiresAt', 'hash', 'id', 'lastUsedAt', 'name', 'tokenableId', 'type', 'updatedAt'] as const
   $columns = AuthAccessTokenSchema.$columns
   @column()
   declare abilities: string
@@ -44,23 +33,10 @@ export class AuthAccessTokenSchema extends BaseModel {
 }
 
 export class ClientSchema extends BaseModel {
-  static $columns = [
-    'addressLine1',
-    'addressLine2',
-    'city',
-    'country',
-    'createdAt',
-    'email',
-    'id',
-    'name',
-    'updatedAt',
-    'zip',
-  ] as const
+  static $columns = ['address', 'city', 'country', 'createdAt', 'email', 'id', 'name', 'phone', 'updatedAt', 'zip'] as const
   $columns = ClientSchema.$columns
   @column()
-  declare addressLine1: string
-  @column()
-  declare addressLine2: string | null
+  declare address: string
   @column()
   declare city: string
   @column()
@@ -73,6 +49,8 @@ export class ClientSchema extends BaseModel {
   declare id: number
   @column()
   declare name: string
+  @column()
+  declare phone: string | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
   @column()
@@ -80,17 +58,7 @@ export class ClientSchema extends BaseModel {
 }
 
 export class InvoiceItemSchema extends BaseModel {
-  static $columns = [
-    'createdAt',
-    'description',
-    'id',
-    'invoiceId',
-    'quantity',
-    'sortOrder',
-    'totalPrice',
-    'unitPrice',
-    'updatedAt',
-  ] as const
+  static $columns = ['createdAt', 'description', 'id', 'invoiceId', 'quantity', 'sortOrder', 'totalPrice', 'unitPrice', 'updatedAt'] as const
   $columns = InvoiceItemSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -113,27 +81,7 @@ export class InvoiceItemSchema extends BaseModel {
 }
 
 export class InvoiceSettingSchema extends BaseModel {
-  static $columns = [
-    'addressLine1',
-    'addressLine2',
-    'bankAccountName',
-    'bankName',
-    'bic',
-    'businessName',
-    'city',
-    'country',
-    'createdAt',
-    'defaultPaymentDueDays',
-    'email',
-    'gisaNumber',
-    'iban',
-    'id',
-    'phone',
-    'smallBusinessText',
-    'taxNumber',
-    'updatedAt',
-    'zip',
-  ] as const
+  static $columns = ['addressLine1', 'addressLine2', 'bankAccountName', 'bankName', 'bic', 'businessName', 'city', 'country', 'createdAt', 'defaultPaymentDueDays', 'email', 'gisaNumber', 'iban', 'id', 'phone', 'smallBusinessText', 'taxNumber', 'updatedAt', 'zip'] as const
   $columns = InvoiceSettingSchema.$columns
   @column()
   declare addressLine1: string
@@ -176,26 +124,7 @@ export class InvoiceSettingSchema extends BaseModel {
 }
 
 export class InvoiceSchema extends BaseModel {
-  static $columns = [
-    'cancelledAt',
-    'clientId',
-    'createdAt',
-    'currency',
-    'id',
-    'invoiceNumber',
-    'invoiceNumberString',
-    'invoiceYear',
-    'issueDate',
-    'issuedAt',
-    'paidAt',
-    'paymentDueDays',
-    'paymentMethod',
-    'pdfPath',
-    'serviceDate',
-    'status',
-    'totalAmount',
-    'updatedAt',
-  ] as const
+  static $columns = ['cancelledAt', 'clientId', 'createdAt', 'currency', 'id', 'invoiceNumber', 'invoiceNumberString', 'invoiceYear', 'issueDate', 'issuedAt', 'paidAt', 'paymentDueDays', 'paymentMethod', 'pdfPath', 'serviceDate', 'status', 'totalAmount', 'updatedAt'] as const
   $columns = InvoiceSchema.$columns
   @column.dateTime()
   declare cancelledAt: DateTime | null
