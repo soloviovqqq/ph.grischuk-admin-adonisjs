@@ -32,7 +32,7 @@ export default class Invoice extends BaseModel {
   declare issuedAt: DateTime | null
 
   @column.date()
-  declare serviceAt: DateTime | null
+  declare serviceAt: DateTime
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

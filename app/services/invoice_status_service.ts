@@ -36,10 +36,6 @@ export default class InvoiceStatusService {
             throw new HttpError(404, 'Invoice not found')
           }
 
-          if (invoice.status === 'cancelled') {
-            throw new HttpError(409, 'Cancelled invoices cannot be issued or regenerated')
-          }
-
           if (!invoice.client) {
             throw new HttpError(422, 'Invoice must have a client before PDF generation')
           }
@@ -48,16 +44,7 @@ export default class InvoiceStatusService {
             throw new HttpError(422, 'Invoice must have at least one item before PDF generation')
           }
 
-          if (invoice.status === 'issued' || invoice.status === 'paid') {
-            return invoice
-          }
-
-          if (invoice.status !== 'draft') {
-            throw new HttpError(409, `Invoice with status "${invoice.status}" cannot be issued`)
-          }
-
           await InvoiceNumberService.assign(invoice, trx)
-          invoice.status = 'issued'
           invoice.issuedAt = invoice.issuedAt ?? DateTime.now()
           invoice.useTransaction(trx)
           await invoice.save()
@@ -82,22 +69,6 @@ export default class InvoiceStatusService {
       throw new HttpError(404, 'Invoice not found')
     }
 
-    if (invoice.status === 'draft') {
-      throw new HttpError(409, 'Draft invoices must be issued before they can be marked as paid')
-    }
-
-    if (invoice.status === 'cancelled') {
-      throw new HttpError(409, 'Cancelled invoices cannot be marked as paid')
-    }
-
-    if (invoice.status === 'paid') {
-      return invoice
-    }
-
-    invoice.status = 'paid'
-    invoice.paidAt = invoice.paidAt ?? DateTime.now()
-    await invoice.save()
-
     return invoice
   }
 
@@ -107,18 +78,6 @@ export default class InvoiceStatusService {
     if (!invoice) {
       throw new HttpError(404, 'Invoice not found')
     }
-
-    if (invoice.status === 'paid') {
-      throw new HttpError(409, 'Paid invoices cannot be cancelled')
-    }
-
-    if (invoice.status === 'cancelled') {
-      return invoice
-    }
-
-    invoice.status = 'cancelled'
-    invoice.cancelledAt = invoice.cancelledAt ?? DateTime.now()
-    await invoice.save()
 
     return invoice
   }

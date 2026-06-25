@@ -1,8 +1,9 @@
+import { DateTime } from 'luxon'
 import Client from '#models/client'
-import type { HttpContext } from '@adonisjs/core/http'
-import { createInvoiceValidator } from '#validators/invoice'
 import Invoice from '#models/invoice'
 import InvoiceItem from '#models/invoice_item'
+import type { HttpContext } from '@adonisjs/core/http'
+import { createInvoiceValidator } from '#validators/invoice'
 
 export default class StoreController {
   public async handle({ request, response }: HttpContext) {
@@ -15,6 +16,7 @@ export default class StoreController {
       year: new Date().getFullYear(),
       clientId: client.id,
       paymentMethod: 'bank_transfer',
+      serviceAt: DateTime.now(),
       totalAmount: 0,
     })
 

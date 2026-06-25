@@ -12,11 +12,11 @@ export const controllers = {
     Update: () => import('#controllers/clients/update_controller'),
   },
   InvoiceSettings: () => import('#controllers/invoice_settings_controller'),
-  Invoices: () => import('#controllers/invoices_controller'),
   invoices: {
     GeneratePdf: () => import('#controllers/invoices/generate_pdf_controller'),
     List: () => import('#controllers/invoices/list_controller'),
     Store: () => import('#controllers/invoices/store_controller'),
+    TemplatePreview: () => import('#controllers/invoices/template_preview_controller'),
   },
   NewAccount: () => import('#controllers/new_account_controller'),
   Profile: () => import('#controllers/profile_controller'),

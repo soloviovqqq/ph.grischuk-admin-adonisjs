@@ -1,4 +1,5 @@
 import type Invoice from '#models/invoice'
+import InvoiceSetting from '#models/invoice_setting'
 import { renderInvoiceTemplate } from '#templates/invoice_template'
 import app from '@adonisjs/core/services/app'
 import { chromium, type Browser } from 'playwright'
@@ -6,12 +7,19 @@ import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
 
 export default class InvoicePdfService {
-  static async generateAndPersist(invoice: Invoice) {
-    const html = renderInvoiceTemplate({
+  static async renderHtml(invoice: Invoice) {
+    const settings = await InvoiceSetting.first()
+
+    return renderInvoiceTemplate({
       invoice,
       client: invoice.client,
+      settings,
       items: invoice.items,
     })
+  }
+
+  static async generateAndPersist(invoice: Invoice) {
+    const html = await this.renderHtml(invoice)
 
     const relativePath = this.relativePath(invoice)
     const absolutePath = this.absolutePath(relativePath)

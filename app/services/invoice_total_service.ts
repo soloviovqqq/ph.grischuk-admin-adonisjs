@@ -5,7 +5,7 @@ import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 
 export default class InvoiceTotalService {
   static calculateFromPayload(items: InvoiceItemPayload[]) {
-    return items.reduce((total, item) => total + item.totalPrice, 0)
+    return items.reduce((total, item) => total + item.quantity * item.price, 0)
   }
 
   static async recalculate(invoice: Invoice, trx?: TransactionClientContract) {

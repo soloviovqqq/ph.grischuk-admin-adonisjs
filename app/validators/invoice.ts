@@ -45,7 +45,6 @@ export const updateInvoiceValidator = vine.create({
 
 export type InvoiceItemPayload = {
   description: string
-  quantity?: number | null
-  unitPrice?: number | null
-  totalPrice: number
+  quantity: number
+  price: number
 }
