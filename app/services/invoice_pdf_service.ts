@@ -1,6 +1,4 @@
-import Invoice from '#models/invoice'
-import InvoiceSetting from '#models/invoice_setting'
-import HttpError from '#services/http_error'
+import type Invoice from '#models/invoice'
 import { renderInvoiceTemplate } from '#templates/invoice_template'
 import app from '@adonisjs/core/services/app'
 import { chromium, type Browser } from 'playwright'
@@ -8,38 +6,10 @@ import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
 
 export default class InvoicePdfService {
-  static async generateAndPersist(invoiceId: number) {
-    const invoice = await Invoice.query()
-      .where('id', invoiceId)
-      .preload('client')
-      .preload('items', (itemsQuery) => itemsQuery.orderBy('sort_order', 'asc'))
-      .first()
-
-    if (!invoice) {
-      throw new HttpError(404, 'Invoice not found')
-    }
-
-    if (!invoice.invoiceNumberString || !invoice.invoiceYear) {
-      throw new HttpError(409, 'Invoice must be issued before PDF generation')
-    }
-
-    if (!invoice.client) {
-      throw new HttpError(422, 'Invoice must have a client before PDF generation')
-    }
-
-    if (invoice.items.length === 0) {
-      throw new HttpError(422, 'Invoice must have at least one item before PDF generation')
-    }
-
-    const settings = await InvoiceSetting.first()
-    if (!settings) {
-      throw new HttpError(422, 'Invoice settings must be configured before PDF generation')
-    }
-
+  static async generateAndPersist(invoice: Invoice) {
     const html = renderInvoiceTemplate({
       invoice,
       client: invoice.client,
-      settings,
       items: invoice.items,
     })
 
@@ -79,8 +49,8 @@ export default class InvoicePdfService {
   }
 
   private static relativePath(invoice: Invoice) {
-    const fileName = `${invoice.invoiceNumberString!.replace('/', '-')}.pdf`
+    const fileName = `${invoice.number.toString().replace('/', '-')}.pdf`
 
-    return ['storage', 'invoices', String(invoice.invoiceYear), fileName].join('/')
+    return ['storage', 'invoices', String(invoice.year), fileName].join('/')
   }
 }

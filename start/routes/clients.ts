@@ -13,3 +13,4 @@ router
     router.delete('clients/:id', [DestroyController])
   })
   .prefix('/api/v1')
+  .as('clients')

@@ -6,29 +6,47 @@ import type { ApiDefinition } from './tree.d.ts'
 const placeholder: any = {}
 
 const routes = {
-  'list': {
+  'clients.list': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/clients',
     tokens: [{"old":"/api/v1/clients","type":0,"val":"api","end":""},{"old":"/api/v1/clients","type":0,"val":"v1","end":""},{"old":"/api/v1/clients","type":0,"val":"clients","end":""}],
-    types: placeholder as Registry['list']['types'],
+    types: placeholder as Registry['clients.list']['types'],
   },
-  'store': {
+  'clients.store': {
     methods: ["POST"],
     pattern: '/api/v1/clients',
     tokens: [{"old":"/api/v1/clients","type":0,"val":"api","end":""},{"old":"/api/v1/clients","type":0,"val":"v1","end":""},{"old":"/api/v1/clients","type":0,"val":"clients","end":""}],
-    types: placeholder as Registry['store']['types'],
+    types: placeholder as Registry['clients.store']['types'],
   },
-  'update': {
+  'clients.update': {
     methods: ["PATCH"],
     pattern: '/api/v1/clients/:id',
     tokens: [{"old":"/api/v1/clients/:id","type":0,"val":"api","end":""},{"old":"/api/v1/clients/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/clients/:id","type":0,"val":"clients","end":""},{"old":"/api/v1/clients/:id","type":1,"val":"id","end":""}],
-    types: placeholder as Registry['update']['types'],
+    types: placeholder as Registry['clients.update']['types'],
   },
-  'destroy': {
+  'clients.destroy': {
     methods: ["DELETE"],
     pattern: '/api/v1/clients/:id',
     tokens: [{"old":"/api/v1/clients/:id","type":0,"val":"api","end":""},{"old":"/api/v1/clients/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/clients/:id","type":0,"val":"clients","end":""},{"old":"/api/v1/clients/:id","type":1,"val":"id","end":""}],
-    types: placeholder as Registry['destroy']['types'],
+    types: placeholder as Registry['clients.destroy']['types'],
+  },
+  'invoices.list': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/invoices',
+    tokens: [{"old":"/api/v1/invoices","type":0,"val":"api","end":""},{"old":"/api/v1/invoices","type":0,"val":"v1","end":""},{"old":"/api/v1/invoices","type":0,"val":"invoices","end":""}],
+    types: placeholder as Registry['invoices.list']['types'],
+  },
+  'invoices.store': {
+    methods: ["POST"],
+    pattern: '/api/v1/invoices',
+    tokens: [{"old":"/api/v1/invoices","type":0,"val":"api","end":""},{"old":"/api/v1/invoices","type":0,"val":"v1","end":""},{"old":"/api/v1/invoices","type":0,"val":"invoices","end":""}],
+    types: placeholder as Registry['invoices.store']['types'],
+  },
+  'invoices.generate_pdf': {
+    methods: ["POST"],
+    pattern: '/api/v1/invoices/:id/generate-pdf',
+    tokens: [{"old":"/api/v1/invoices/:id/generate-pdf","type":0,"val":"api","end":""},{"old":"/api/v1/invoices/:id/generate-pdf","type":0,"val":"v1","end":""},{"old":"/api/v1/invoices/:id/generate-pdf","type":0,"val":"invoices","end":""},{"old":"/api/v1/invoices/:id/generate-pdf","type":1,"val":"id","end":""},{"old":"/api/v1/invoices/:id/generate-pdf","type":0,"val":"generate-pdf","end":""}],
+    types: placeholder as Registry['invoices.generate_pdf']['types'],
   },
 } as const satisfies Record<string, AdonisEndpoint>
 

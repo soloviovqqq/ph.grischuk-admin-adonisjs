@@ -58,7 +58,7 @@ export class ClientSchema extends BaseModel {
 }
 
 export class InvoiceItemSchema extends BaseModel {
-  static $columns = ['createdAt', 'description', 'id', 'invoiceId', 'quantity', 'sortOrder', 'totalPrice', 'unitPrice', 'updatedAt'] as const
+  static $columns = ['createdAt', 'description', 'id', 'invoiceId', 'price', 'quantity', 'sortOrder', 'totalPrice', 'updatedAt'] as const
   $columns = InvoiceItemSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -67,15 +67,15 @@ export class InvoiceItemSchema extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare invoiceId: number
+  declare invoiceId: number | null
   @column()
-  declare quantity: number | null
+  declare price: number
+  @column()
+  declare quantity: number
   @column()
   declare sortOrder: number
   @column()
   declare totalPrice: number
-  @column()
-  declare unitPrice: number | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
@@ -124,44 +124,30 @@ export class InvoiceSettingSchema extends BaseModel {
 }
 
 export class InvoiceSchema extends BaseModel {
-  static $columns = ['cancelledAt', 'clientId', 'createdAt', 'currency', 'id', 'invoiceNumber', 'invoiceNumberString', 'invoiceYear', 'issueDate', 'issuedAt', 'paidAt', 'paymentDueDays', 'paymentMethod', 'pdfPath', 'serviceDate', 'status', 'totalAmount', 'updatedAt'] as const
+  static $columns = ['clientId', 'createdAt', 'id', 'issuedAt', 'number', 'paymentMethod', 'pdfPath', 'serviceAt', 'totalAmount', 'updatedAt', 'year'] as const
   $columns = InvoiceSchema.$columns
-  @column.dateTime()
-  declare cancelledAt: DateTime | null
   @column()
-  declare clientId: number
+  declare clientId: number | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
-  @column()
-  declare currency: string
   @column({ isPrimary: true })
   declare id: number
-  @column()
-  declare invoiceNumber: number | null
-  @column()
-  declare invoiceNumberString: string | null
-  @column()
-  declare invoiceYear: number | null
-  @column.date()
-  declare issueDate: DateTime
   @column.dateTime()
   declare issuedAt: DateTime | null
-  @column.dateTime()
-  declare paidAt: DateTime | null
   @column()
-  declare paymentDueDays: number
+  declare number: number
   @column()
   declare paymentMethod: string
   @column()
   declare pdfPath: string | null
-  @column.date()
-  declare serviceDate: DateTime | null
-  @column()
-  declare status: string
+  @column.dateTime()
+  declare serviceAt: DateTime | null
   @column()
   declare totalAmount: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare year: number
 }
 
 export class UserSchema extends BaseModel {

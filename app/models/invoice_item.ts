@@ -14,10 +14,10 @@ export default class InvoiceItem extends BaseModel {
   declare description: string
 
   @column()
-  declare quantity: number | null
+  declare quantity: number
 
   @column()
-  declare unitPrice: number | null
+  declare price: number
 
   @column()
   declare totalPrice: number

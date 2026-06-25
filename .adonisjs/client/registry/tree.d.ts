@@ -2,8 +2,15 @@
 import type { routes } from './index.ts'
 
 export interface ApiDefinition {
-  list: typeof routes['list']
-  store: typeof routes['store']
-  update: typeof routes['update']
-  destroy: typeof routes['destroy']
+  clients: {
+    list: typeof routes['clients.list']
+    store: typeof routes['clients.store']
+    update: typeof routes['clients.update']
+    destroy: typeof routes['clients.destroy']
+  }
+  invoices: {
+    list: typeof routes['invoices.list']
+    store: typeof routes['invoices.store']
+    generatePdf: typeof routes['invoices.generate_pdf']
+  }
 }

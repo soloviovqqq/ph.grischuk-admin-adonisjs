@@ -1,44 +1,26 @@
+import { DateTime } from 'luxon'
 import Client from '#models/client'
 import InvoiceItem from '#models/invoice_item'
-import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
-import { DateTime } from 'luxon'
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 
-export type InvoiceStatus = 'draft' | 'issued' | 'paid' | 'cancelled'
+export type InvoicePaymentMethod = 'bank_transfer' | 'cash'
 
 export default class Invoice extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
   @column()
-  declare invoiceNumberString: string | null
+  declare number: number
 
   @column()
-  declare invoiceNumber: number | null
-
-  @column()
-  declare invoiceYear: number | null
+  declare year: number
 
   @column()
   declare clientId: number
 
-  @column.date()
-  declare issueDate: DateTime
-
-  @column.date()
-  declare serviceDate: DateTime | null
-
   @column()
-  declare paymentMethod: string
-
-  @column()
-  declare paymentDueDays: number
-
-  @column()
-  declare status: InvoiceStatus
-
-  @column()
-  declare currency: string
+  declare paymentMethod: InvoicePaymentMethod
 
   @column()
   declare totalAmount: number
@@ -46,14 +28,11 @@ export default class Invoice extends BaseModel {
   @column()
   declare pdfPath: string | null
 
-  @column.dateTime()
+  @column.date()
   declare issuedAt: DateTime | null
 
-  @column.dateTime()
-  declare paidAt: DateTime | null
-
-  @column.dateTime()
-  declare cancelledAt: DateTime | null
+  @column.date()
+  declare serviceAt: DateTime | null
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

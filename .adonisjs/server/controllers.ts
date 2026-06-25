@@ -5,14 +5,19 @@
 
 export const controllers = {
   AccessTokens: () => import('#controllers/access_tokens_controller'),
-  InvoiceSettings: () => import('#controllers/invoice_settings_controller'),
-  Invoices: () => import('#controllers/invoices_controller'),
-  NewAccount: () => import('#controllers/new_account_controller'),
-  Profile: () => import('#controllers/profile_controller'),
   clients: {
-    Store: () => import('#controllers/clients/store_controller'),
-    List: () => import('#controllers/clients/list_controller'),
     Destroy: () => import('#controllers/clients/destroy_controller'),
+    List: () => import('#controllers/clients/list_controller'),
+    Store: () => import('#controllers/clients/store_controller'),
     Update: () => import('#controllers/clients/update_controller'),
   },
+  InvoiceSettings: () => import('#controllers/invoice_settings_controller'),
+  Invoices: () => import('#controllers/invoices_controller'),
+  invoices: {
+    GeneratePdf: () => import('#controllers/invoices/generate_pdf_controller'),
+    List: () => import('#controllers/invoices/list_controller'),
+    Store: () => import('#controllers/invoices/store_controller'),
+  },
+  NewAccount: () => import('#controllers/new_account_controller'),
+  Profile: () => import('#controllers/profile_controller'),
 }

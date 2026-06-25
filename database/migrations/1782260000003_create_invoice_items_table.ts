@@ -6,19 +6,12 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').notNullable()
-      table
-        .integer('invoice_id')
-        .unsigned()
-        .notNullable()
-        .references('id')
-        .inTable('invoices')
-        .onDelete('CASCADE')
+      table.integer('invoice_id').unsigned().references('invoices.id').onDelete('CASCADE')
       table.text('description').notNullable()
-      table.integer('quantity').nullable()
-      table.integer('unit_price').nullable()
+      table.integer('quantity').notNullable()
+      table.integer('price').notNullable()
       table.integer('total_price').notNullable()
       table.integer('sort_order').notNullable().defaultTo(0)
-
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()
 

@@ -10,6 +10,7 @@
 import router from '@adonisjs/core/services/router'
 
 import '#start/routes/clients'
+import '#start/routes/invoices'
 
 // const InvoiceSettingsController = () => import('#controllers/invoice_settings_controller')
 // const InvoicesController = () => import('#controllers/invoices_controller')

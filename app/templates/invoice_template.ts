@@ -1,12 +1,10 @@
 import type Client from '#models/client'
 import type Invoice from '#models/invoice'
 import type InvoiceItem from '#models/invoice_item'
-import type InvoiceSetting from '#models/invoice_setting'
 
 type InvoiceTemplateData = {
   invoice: Invoice
   client: Client
-  settings: InvoiceSetting
   items: InvoiceItem[]
 }
 
@@ -46,18 +44,8 @@ function formatMoney(cents: number | null | undefined) {
   return moneyFormatter.format(cents / 100)
 }
 
-function formatDate(value: Invoice['issueDate']) {
-  return dateFormatter.format(value.toJSDate())
-}
-
-export function renderInvoiceTemplate({ invoice, client, settings, items }: InvoiceTemplateData) {
-  const invoiceNumber = invoice.invoiceNumberString ?? 'Entwurf'
-  const clientAddress = [
-    client.addressLine1,
-    client.addressLine2,
-    `${client.zip} ${client.city}`,
-    client.country,
-  ]
+export function renderInvoiceTemplate({ invoice, client, items }: InvoiceTemplateData) {
+  const clientAddress = [client.address, `${client.zip} ${client.city}`, client.country]
     .filter(Boolean)
     .map((value) => `<div>${escapeHtml(value)}</div>`)
     .join('')
@@ -66,10 +54,10 @@ export function renderInvoiceTemplate({ invoice, client, settings, items }: Invo
     .map((item) => {
       return `
         <tr>
-          <td class="quantity">${item.quantity ?? ''}</td>
+          <td class="quantity"> </td>
           <td>${escapeHtml(item.description)}</td>
-          <td class="money">${formatMoney(item.unitPrice)}</td>
-          <td class="money">${formatMoney(item.totalPrice)}</td>
+          <td class="money">${formatMoney(item.price)}</td>
+          <td class="money">${formatMoney(item.price)}</td>
         </tr>
       `
     })
@@ -79,7 +67,7 @@ export function renderInvoiceTemplate({ invoice, client, settings, items }: Invo
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <title>Rechnung ${escapeHtml(invoiceNumber)}</title>
+  <title>Rechnung ${escapeHtml(invoice.number)}/${escapeHtml(invoice.year)} </title>
   <style>
     @page {
       size: A4;
@@ -175,7 +163,7 @@ export function renderInvoiceTemplate({ invoice, client, settings, items }: Invo
     }
 
     .items th {
-      padding: 8px 8px;
+      padding: 8px 0;
       border-top: 1px solid #171717;
       border-bottom: 1px solid #171717;
       text-align: left;
@@ -185,7 +173,7 @@ export function renderInvoiceTemplate({ invoice, client, settings, items }: Invo
     }
 
     .items td {
-      padding: 9px 8px;
+      padding: 9px 0;
       border-bottom: 1px solid #e2e2e2;
       vertical-align: top;
     }
@@ -235,17 +223,16 @@ export function renderInvoiceTemplate({ invoice, client, settings, items }: Invo
   <main class="invoice">
     <section class="top">
       <div>
-        <h1>RECHNUNG ${escapeHtml(invoiceNumber)}</h1>
+        <h1>Rechnung ${escapeHtml(invoice.number)}/${escapeHtml(invoice.year)}</h1>
       </div>
       <div class="business">
-        <strong>${escapeHtml(settings.businessName)}</strong>
-        ${line(settings.addressLine1)}
-        ${line(settings.addressLine2)}
-        <div>${escapeHtml(settings.zip)} ${escapeHtml(settings.city)}, ${escapeHtml(settings.country)}</div>
-        ${line(settings.phone, 'Telefon')}
-        ${line(settings.email, 'E-Mail')}
-        ${line(settings.taxNumber, 'Steuernummer')}
-        ${line(settings.gisaNumber, 'GISA Zahl')}
+        <strong>Tatiana Grisciuc</strong>
+        <div>Boerhaavegasse 8a/2/425</div>
+        <div>1030, Wien, Österreich</div>
+        <div>+43 660 0000000</div>
+        <div>tatiana@example.com</div>
+        <div>Steuernummer: 12 345/6789</div>
+        <div>GISA Zahl: 12345678</div>
       </div>
     </section>
 
@@ -265,13 +252,9 @@ export function renderInvoiceTemplate({ invoice, client, settings, items }: Invo
           </tr>
           <tr>
             <td>Datum</td>
-            <td>${formatDate(invoice.issueDate)}</td>
+            <td>28.04.2026</td>
           </tr>
-          ${
-            invoice.serviceDate
-              ? `<tr><td>Leistungsdatum</td><td>${formatDate(invoice.serviceDate)}</td></tr>`
-              : ''
-          }
+
         </tbody>
       </table>
     </section>
@@ -301,26 +284,24 @@ export function renderInvoiceTemplate({ invoice, client, settings, items }: Invo
 
     <section class="payment">
       <div>
-        Die Zahlung ist innerhalb von ${escapeHtml(
-          invoice.paymentDueDays
-        )} Tagen nach Leistungserbringung auf folgendes Konto zu tätigen:
+        Die Zahlung ist innerhalb von 7 Tagen nach Leistungserbringung auf folgendes Konto zu tätigen:
       </div>
       <div class="bank">
         <strong>Bankverbindung</strong>
-        ${line(settings.iban, 'IBAN')}
-        ${line(settings.bic, 'BIC')}
-        ${line(settings.bankAccountName, 'Empfänger')}
-        ${line(settings.bankName, 'Bank')}
+        <div>IBAN: AT611904300234573201</div>
+        <div>BIC: BKAUATWW</div>
+        <div>Empfänger: Tatiana Grisciuc</div>
+        <div>Bank: Bank Austria</div>
       </div>
     </section>
 
-    <section class="small-business">${escapeHtml(settings.smallBusinessText)}</section>
+    <section class="small-business">Umsatzsteuerbefreiter Kleinunternehmer gemäß §6(1)27 UStG</section>
 
     <section class="closing">
       <div>Danke für Ihren Auftrag!</div>
       <br />
       <div>Mit freundlichen Grüßen,</div>
-      <div>${escapeHtml(settings.businessName)}</div>
+      <div>Tatiana Grisciuc</div>
     </section>
   </main>
 </body>
