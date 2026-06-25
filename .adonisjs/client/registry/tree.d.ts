@@ -11,6 +11,7 @@ export interface ApiDefinition {
   invoices: {
     list: typeof routes['invoices.list']
     store: typeof routes['invoices.store']
+    templatePreview: typeof routes['invoices.template_preview']
     generatePdf: typeof routes['invoices.generate_pdf']
   }
 }

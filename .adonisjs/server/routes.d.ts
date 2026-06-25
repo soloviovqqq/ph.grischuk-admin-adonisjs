@@ -10,15 +10,18 @@ export type ScannedRoutes = {
     'clients.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'invoices.list': { paramsTuple?: []; params?: {} }
     'invoices.store': { paramsTuple?: []; params?: {} }
+    'invoices.template_preview': { paramsTuple?: []; params?: {} }
     'invoices.generate_pdf': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   GET: {
     'clients.list': { paramsTuple?: []; params?: {} }
     'invoices.list': { paramsTuple?: []; params?: {} }
+    'invoices.template_preview': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
     'clients.list': { paramsTuple?: []; params?: {} }
     'invoices.list': { paramsTuple?: []; params?: {} }
+    'invoices.template_preview': { paramsTuple?: []; params?: {} }
   }
   POST: {
     'clients.store': { paramsTuple?: []; params?: {} }

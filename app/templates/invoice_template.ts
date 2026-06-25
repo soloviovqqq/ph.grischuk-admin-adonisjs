@@ -134,7 +134,7 @@ export function renderInvoiceTemplate({ invoice, client, items }: InvoiceTemplat
     }
 
     h1 {
-      margin: 2px 0 0;
+      margin: 2px 0 10px;
       font-size: 24px;
       line-height: 1.14;
       font-weight: 700;

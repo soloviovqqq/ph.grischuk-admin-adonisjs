@@ -79,6 +79,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/invoices/store_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'invoices.template_preview': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/invoices/template-preview'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/invoices/template_preview_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/invoices/template_preview_controller').default['handle']>>>
+    }
+  }
   'invoices.generate_pdf': {
     methods: ["POST"]
     pattern: '/api/v1/invoices/:id/generate-pdf'

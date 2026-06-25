@@ -42,6 +42,12 @@ const routes = {
     tokens: [{"old":"/api/v1/invoices","type":0,"val":"api","end":""},{"old":"/api/v1/invoices","type":0,"val":"v1","end":""},{"old":"/api/v1/invoices","type":0,"val":"invoices","end":""}],
     types: placeholder as Registry['invoices.store']['types'],
   },
+  'invoices.template_preview': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/invoices/template-preview',
+    tokens: [{"old":"/api/v1/invoices/template-preview","type":0,"val":"api","end":""},{"old":"/api/v1/invoices/template-preview","type":0,"val":"v1","end":""},{"old":"/api/v1/invoices/template-preview","type":0,"val":"invoices","end":""},{"old":"/api/v1/invoices/template-preview","type":0,"val":"template-preview","end":""}],
+    types: placeholder as Registry['invoices.template_preview']['types'],
+  },
   'invoices.generate_pdf': {
     methods: ["POST"],
     pattern: '/api/v1/invoices/:id/generate-pdf',
