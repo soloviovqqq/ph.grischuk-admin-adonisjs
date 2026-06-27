@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.text('description').notNullable()
       table.integer('quantity').notNullable()
       table.integer('price').notNullable()
-      table.integer('total_price').notNullable()
+      table.integer('total').notNullable()
       table.integer('sort_order').notNullable().defaultTo(0)
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()

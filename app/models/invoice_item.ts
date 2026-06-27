@@ -20,7 +20,7 @@ export default class InvoiceItem extends BaseModel {
   declare price: number
 
   @column()
-  declare totalPrice: number
+  declare total: number
 
   @column()
   declare sortOrder: number

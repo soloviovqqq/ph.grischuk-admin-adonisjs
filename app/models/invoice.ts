@@ -23,7 +23,7 @@ export default class Invoice extends BaseModel {
   declare paymentMethod: InvoicePaymentMethod
 
   @column()
-  declare totalAmount: number
+  declare total: number
 
   @column()
   declare pdfPath: string | null

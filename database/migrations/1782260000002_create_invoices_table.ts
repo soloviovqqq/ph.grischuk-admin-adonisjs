@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.integer('year').notNullable()
       table.integer('client_id').unsigned().references('clients.id').onDelete('RESTRICT')
       table.string('payment_method').notNullable()
-      table.integer('total_amount').notNullable().defaultTo(0)
+      table.integer('total').notNullable().defaultTo(0)
       table.string('pdf_path').nullable()
       table.timestamp('issued_at').nullable()
       table.timestamp('service_at').nullable()
