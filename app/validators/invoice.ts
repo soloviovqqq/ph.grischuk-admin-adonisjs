@@ -34,6 +34,10 @@ export const invoiceSettingsValidator = vine.create({
   defaultPaymentDueDays: vine.number().withoutDecimals().min(1).max(365).optional(),
 })
 
+export const updateInvoiceStatusValidator = vine.create({
+  status: vine.number(),
+})
+
 export const updateInvoiceValidator = vine.create({
   clientId: vine.number().withoutDecimals().positive().optional(),
   issueDate: dateString().optional(),

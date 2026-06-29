@@ -13,5 +13,6 @@ export interface ApiDefinition {
     store: typeof routes['invoices.store']
     templatePreview: typeof routes['invoices.template_preview']
     generatePdf: typeof routes['invoices.generate_pdf']
+    updateStatus: typeof routes['invoices.update_status']
   }
 }

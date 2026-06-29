@@ -12,6 +12,7 @@ export type ScannedRoutes = {
     'invoices.store': { paramsTuple?: []; params?: {} }
     'invoices.template_preview': { paramsTuple?: []; params?: {} }
     'invoices.generate_pdf': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'invoices.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   GET: {
     'clients.list': { paramsTuple?: []; params?: {} }
@@ -30,6 +31,7 @@ export type ScannedRoutes = {
   }
   PATCH: {
     'clients.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'invoices.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   DELETE: {
     'clients.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }

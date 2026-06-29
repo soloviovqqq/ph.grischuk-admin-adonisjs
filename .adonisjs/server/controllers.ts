@@ -17,6 +17,7 @@ export const controllers = {
     List: () => import('#controllers/invoices/list_controller'),
     Store: () => import('#controllers/invoices/store_controller'),
     TemplatePreview: () => import('#controllers/invoices/template_preview_controller'),
+    UpdateStatus: () => import('#controllers/invoices/update_status_controller'),
   },
   NewAccount: () => import('#controllers/new_account_controller'),
   Profile: () => import('#controllers/profile_controller'),

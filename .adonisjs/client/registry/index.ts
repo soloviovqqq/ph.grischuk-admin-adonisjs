@@ -54,6 +54,12 @@ const routes = {
     tokens: [{"old":"/api/v1/invoices/:id/generate-pdf","type":0,"val":"api","end":""},{"old":"/api/v1/invoices/:id/generate-pdf","type":0,"val":"v1","end":""},{"old":"/api/v1/invoices/:id/generate-pdf","type":0,"val":"invoices","end":""},{"old":"/api/v1/invoices/:id/generate-pdf","type":1,"val":"id","end":""},{"old":"/api/v1/invoices/:id/generate-pdf","type":0,"val":"generate-pdf","end":""}],
     types: placeholder as Registry['invoices.generate_pdf']['types'],
   },
+  'invoices.update_status': {
+    methods: ["PATCH"],
+    pattern: '/api/v1/invoices/:id/status',
+    tokens: [{"old":"/api/v1/invoices/:id/status","type":0,"val":"api","end":""},{"old":"/api/v1/invoices/:id/status","type":0,"val":"v1","end":""},{"old":"/api/v1/invoices/:id/status","type":0,"val":"invoices","end":""},{"old":"/api/v1/invoices/:id/status","type":1,"val":"id","end":""},{"old":"/api/v1/invoices/:id/status","type":0,"val":"status","end":""}],
+    types: placeholder as Registry['invoices.update_status']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

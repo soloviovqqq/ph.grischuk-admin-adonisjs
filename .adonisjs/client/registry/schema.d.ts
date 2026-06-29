@@ -103,4 +103,16 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/invoices/generate_pdf_controller').default['handle']>>>
     }
   }
+  'invoices.update_status': {
+    methods: ["PATCH"]
+    pattern: '/api/v1/invoices/:id/status'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/invoice').updateInvoiceStatusValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/invoice').updateInvoiceStatusValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/invoices/update_status_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/invoices/update_status_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
 }
