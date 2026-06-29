@@ -47,7 +47,7 @@ function formatMoney(cents: number | null | undefined) {
 }
 
 function formatDate(invoice: Invoice) {
-  const date = invoice.issuedAt ?? invoice.serviceAt
+  const date = invoice.issuedAt
 
   return dateFormatter.format(date.toJSDate())
 }
@@ -89,7 +89,7 @@ export function renderInvoiceTemplate({ invoice, client, items }: InvoiceTemplat
           <td>${escapeHtml(item.description)}</td>
           <td class="quantity">${escapeHtml(item.quantity)}</td>
           <td class="money">${formatMoney(item.price)}</td>
-          <td class="money">${formatMoney(item.totalPrice)}</td>
+          <td class="money">${formatMoney(item.total)}</td>
         </tr>
       `
     })
@@ -316,7 +316,7 @@ export function renderInvoiceTemplate({ invoice, client, items }: InvoiceTemplat
         <tbody>
           <tr>
             <td class="sum-label">Summe</td>
-            <td class="sum-amount">€ ${formatMoney(invoice.totalAmount)}</td>
+            <td class="sum-amount">€ ${formatMoney(invoice.total)}</td>
           </tr>
         </tbody>
       </table>

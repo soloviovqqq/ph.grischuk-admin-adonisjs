@@ -12,8 +12,8 @@ export default class extends BaseSchema {
       table.string('payment_method').notNullable()
       table.integer('total').notNullable().defaultTo(0)
       table.string('pdf_path').nullable()
+      table.integer('status').nullable().defaultTo(0)
       table.timestamp('issued_at').nullable()
-      table.timestamp('service_at').nullable()
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()
 

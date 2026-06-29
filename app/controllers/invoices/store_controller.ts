@@ -16,8 +16,8 @@ export default class StoreController {
       year: new Date().getFullYear(),
       clientId: client.id,
       paymentMethod: 'bank_transfer',
-      serviceAt: DateTime.now(),
-      totalAmount: 0,
+      issuedAt: DateTime.now(),
+      total: 0,
     })
 
     for (let i = 0; i < 5; i++) {}
@@ -27,12 +27,12 @@ export default class StoreController {
       description: item.description,
       quantity: item.quantity,
       price: item.price,
-      totalPrice: item.quantity * item.price,
+      total: item.quantity * item.price,
       sortOrder: index + 1,
     }))
 
     await InvoiceItem.createMany(items)
-    invoice.totalAmount = items.reduce((sum, item) => sum + item.totalPrice, 0)
+    invoice.total = items.reduce((sum, item) => sum + item.total, 0)
     await invoice.save()
 
     return response.created()

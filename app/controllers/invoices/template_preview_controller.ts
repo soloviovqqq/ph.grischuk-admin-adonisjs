@@ -12,7 +12,7 @@ export default class TemplatePreviewController {
       number: 24,
       year: 2026,
       paymentMethod: 'bank_transfer',
-      totalAmount: 55000,
+      total: 55000,
       issuedAt,
       createdAt: issuedAt,
     } as Invoice
@@ -31,7 +31,7 @@ export default class TemplatePreviewController {
         description: 'Fotoshooting - 3 Stunden',
         quantity: 3,
         price: 15000,
-        totalPrice: 45000,
+        total: 45000,
       },
       {
         description: 'Transportkosten',

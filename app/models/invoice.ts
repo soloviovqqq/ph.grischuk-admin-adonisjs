@@ -28,11 +28,11 @@ export default class Invoice extends BaseModel {
   @column()
   declare pdfPath: string | null
 
-  @column.date()
-  declare issuedAt: DateTime | null
+  @column()
+  declare status: number
 
   @column.date()
-  declare serviceAt: DateTime
+  declare issuedAt: DateTime
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

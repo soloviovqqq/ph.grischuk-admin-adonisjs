@@ -58,7 +58,7 @@ export class ClientSchema extends BaseModel {
 }
 
 export class InvoiceItemSchema extends BaseModel {
-  static $columns = ['createdAt', 'description', 'id', 'invoiceId', 'price', 'quantity', 'sortOrder', 'totalPrice', 'updatedAt'] as const
+  static $columns = ['createdAt', 'description', 'id', 'invoiceId', 'price', 'quantity', 'sortOrder', 'total', 'updatedAt'] as const
   $columns = InvoiceItemSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -75,7 +75,7 @@ export class InvoiceItemSchema extends BaseModel {
   @column()
   declare sortOrder: number
   @column()
-  declare totalPrice: number
+  declare total: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
@@ -124,7 +124,7 @@ export class InvoiceSettingSchema extends BaseModel {
 }
 
 export class InvoiceSchema extends BaseModel {
-  static $columns = ['clientId', 'createdAt', 'id', 'issuedAt', 'number', 'paymentMethod', 'pdfPath', 'serviceAt', 'totalAmount', 'updatedAt', 'year'] as const
+  static $columns = ['clientId', 'createdAt', 'id', 'issuedAt', 'number', 'paymentMethod', 'pdfPath', 'status', 'total', 'updatedAt', 'year'] as const
   $columns = InvoiceSchema.$columns
   @column()
   declare clientId: number | null
@@ -140,10 +140,10 @@ export class InvoiceSchema extends BaseModel {
   declare paymentMethod: string
   @column()
   declare pdfPath: string | null
-  @column.dateTime()
-  declare serviceAt: DateTime | null
   @column()
-  declare totalAmount: number
+  declare status: number | null
+  @column()
+  declare total: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
   @column()

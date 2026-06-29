@@ -5,9 +5,9 @@ export default class ListController {
   public async handle({ response }: HttpContext) {
     const clients = await Client.query()
       .withAggregate('invoices', (query) => {
-        query.sum('total_amount').as('total')
+        query.sum('total').as('total')
       })
-      .orderBy('createdAt', 'asc')
+      .orderBy('createdAt', 'desc')
 
     return response.ok(
       clients.map((client) => ({
